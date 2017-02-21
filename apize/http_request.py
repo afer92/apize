@@ -4,8 +4,10 @@ from __future__ import absolute_import
 
 import json
 import requests
-from http.cookiejar import CookieJar
-
+try:
+	from http.cookiejar import CookieJar
+except:
+	from cookielib import CookieJar
 
 def send_request(url, method, data, 
 	args, params, headers, cookies, timeout, is_json, verify_cert):
@@ -53,7 +55,7 @@ def send_request(url, method, data,
 		response = r.json()
 		isjson = True
 		
-	except json.decoder.JSONDecodeError:
+	except ValueError:
 		content_type = r.headers.get('Content-Type', 'text/html')
 		response = r.text
 		isjson = False
