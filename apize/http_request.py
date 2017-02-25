@@ -4,7 +4,10 @@ from __future__ import absolute_import
 
 import json
 import requests
-from http.cookiejar import CookieJar
+try:
+        from http.cookiejar import CookieJar
+except ImportError:
+        from cookielib import CookieJar
 
 
 def send_request(url, method, data, 
